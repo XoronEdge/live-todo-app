@@ -1,0 +1,21 @@
+<div class="mx-auto overflow-x-hidden w-4/5">
+  <div class="flex flex-row justify-between">
+    <h1 class=" m-2 text-3xl font-medium cursor-pointer">Todo Lists</h1>
+    <h1 class=" m-2 text-2xl font-medium cursor-pointer">Viewing <%= @visitor_count %></h1>
+ </div>
+  <button phx-click="add_list" type="button" class="ml-2 inline-block px-2 py-1.5 bg-gray-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md">
+   Add New List
+  </button>
+   <%= if @list_form_modal do %>
+      <.live_component module={TodoWeb.ListFormComponent} id="list_form"  changeset={@changeset}/>
+    <% end %>
+  <div class="flex flex-row p-1 w-full flex-wrap ">
+    <%= for list <- @todo_list do %>
+    <TodoComponent.list  list={list}/>
+    <% end %>
+  </div>  
+  <!-- Modal -->  
+  <%= if @item_form_modal do %>
+     <.live_component module={TodoWeb.ItemFormComponent} id="item_form"  changeset={@changeset} list_id={@list_id} />
+  <% end %>
+</div>

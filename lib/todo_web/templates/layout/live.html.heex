@@ -1,0 +1,11 @@
+<main>
+  <p class="alert alert-info z-50 absolute top-0 w-screen" role="alert"
+    phx-click="lv:clear-flash"
+    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+
+  <p class="alert alert-danger z-50 absolute top-0 w-screen" role="alert"
+    phx-click="lv:clear-flash"
+    phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+
+  <%= @inner_content %>
+</main>

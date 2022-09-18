@@ -10,6 +10,10 @@ defmodule TodoWeb.TodoListLive do
       |> fetch_todo_list
       |> init_presence
 
+    if connected?(socket) do
+      init_cleanup()
+    end
+
     {:ok, assign(socket, %{item_form_modal: false, list_form_modal: false})}
   end
 
@@ -118,6 +122,10 @@ defmodule TodoWeb.TodoListLive do
     {:noreply, assign(socket, :visitor_count, visitor_count)}
   end
 
+  def handle_info({:fetch_todo_list}, socket) do
+    {:noreply, fetch_todo_list(socket)}
+  end
+
   def modal_toggle_class(item_form_modal) do
     if item_form_modal, do: "", else: "hidden"
   end
@@ -153,5 +161,10 @@ defmodule TodoWeb.TodoListLive do
     )
 
     assign(socket, visitor_count: initial_count)
+  end
+
+  defp init_cleanup() do
+    topic = "archived_cleanup"
+    TodoWeb.Endpoint.subscribe(topic)
   end
 end

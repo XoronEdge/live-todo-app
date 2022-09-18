@@ -11,7 +11,11 @@ defmodule Todo.ArchivedList do
   end
 
   def handle_cast(:start_archiving, _) do
-    archived_List()
+    {updation_count, _} = archived_List()
+
+    if updation_count >= 1 do
+      Phoenix.PubSub.broadcast(Todo.PubSub, "archived_cleanup", {:fetch_todo_list})
+    end
 
     {:noreply, nil, :hibernate}
   end

@@ -1,7 +1,5 @@
 # Todo App
 
-[![License][shield-license]][github]
-
 > Todo App written in Elixir/Phoenix LiveView
 
 This is a small todo app. User can create and update todo list and item for each list.
